@@ -1,0 +1,11 @@
+# Local settings for `npm run dev`. Copy to .dev.vars (gitignored) and fill in.
+# In production, set the same variables on the Cloudflare Pages project.
+
+# Supabase project the admins sign in with (same as the app's).
+# The anon key is public by design; it's handed to the browser.
+SUPABASE_URL=https://your-project.supabase.co
+SUPABASE_ANON_KEY=your-anon-key
+
+# The Maika backend. The API key stays on the server: /api/backend/* adds it.
+MAIKA_BACKEND_URL=https://maika-backend-service-dev-updated-949743000807.europe-west6.run.app
+MAIKA_BACKEND_API_KEY=your-backend-api-key

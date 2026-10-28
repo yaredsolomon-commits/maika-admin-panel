@@ -1,0 +1,8 @@
+# Cloudflare Pages — the Maika admin panel.
+#
+# Local:   npm run dev     (reads .dev.vars; see .dev.vars.example)
+# Deploy:  npm run deploy  (set the same variables on the Pages project)
+
+name = "maika-admin-panel"
+compatibility_date = "2025-05-01"
+pages_build_output_dir = "public"

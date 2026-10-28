@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Sign in · Maika Admin</title>
+  <link rel="icon" href="/assets/favicon-light.jpg" media="(prefers-color-scheme: light)">
+  <link rel="icon" href="/assets/favicon-dark.png" media="(prefers-color-scheme: dark)">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+  <script type="module" src="/js/login.js"></script>
+</head>
+<body>
+  <div class="glow-bg" aria-hidden="true"></div>
+
+  <main class="auth-page">
+    <section class="card auth-card" aria-labelledby="login-title">
+      <a class="brand" href="/">
+        <img src="/assets/logo.png" alt="">
+        <span class="brand-label"><strong>Maika Admin</strong><span>Music That Listens</span></span>
+      </a>
+
+      <h1 id="login-title">Welcome back</h1>
+      <p>Sign in with your Maika account.</p>
+
+      <form class="auth-form" id="login-form" novalidate>
+        <div class="alert alert-error" id="login-error" role="alert" hidden></div>
+
+        <label class="field">
+          <span class="field-label">Email</span>
+          <input class="input" type="email" name="email" id="email" autocomplete="username" required>
+        </label>
+
+        <label class="field">
+          <span class="field-label">Password</span>
+          <span class="password-row">
+            <input class="input" type="password" name="password" id="password" autocomplete="current-password" required>
+            <button class="password-toggle" type="button" id="password-toggle" aria-controls="password">Show</button>
+          </span>
+        </label>
+
+        <button class="btn btn-primary btn-block" type="submit" id="login-submit">Sign in</button>
+      </form>
+
+      <p class="auth-note">
+        Only accounts with admin access can sign in. If yours doesn't have it yet,
+        ask the team to turn it on.
+      </p>
+      <a class="auth-back" href="/">← Back</a>
+    </section>
+  </main>
+</body>
+</html>
