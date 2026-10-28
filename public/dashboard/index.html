@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Notifications · Maika Admin</title>
+  <link rel="icon" href="/assets/favicon-light.jpg" media="(prefers-color-scheme: light)">
+  <link rel="icon" href="/assets/favicon-dark.png" media="(prefers-color-scheme: dark)">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+  <script type="module" src="/js/dashboard.js"></script>
+</head>
+<body>
+  <div class="shell" id="shell" hidden>
+    <aside class="sidebar">
+      <a class="brand" href="/">
+        <img src="/assets/logo.png" alt="">
+        <span class="brand-label"><strong>Maika Admin</strong><span>Music That Listens</span></span>
+      </a>
+      <nav class="nav" aria-label="Sections">
+        <p class="nav-section">Manage</p>
+        <a class="nav-item" href="/dashboard/" aria-current="page">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+          Notifications
+        </a>
+        <span class="nav-item is-disabled" aria-disabled="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+          Music catalog <span class="badge">Soon</span>
+        </span>
+        <span class="nav-item is-disabled" aria-disabled="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          Beta testers <span class="badge">Soon</span>
+        </span>
+      </nav>
+    </aside>
+
+    <div class="main">
+      <header class="topbar">
+        <div>
+          <h1>Notifications</h1>
+          <p>Push messages to the Maika app.</p>
+        </div>
+        <div class="user-chip">
+          <span class="avatar" id="avatar" aria-hidden="true"></span>
+          <span class="user-email" id="user-email"></span>
+          <button class="btn btn-small btn-ghost" type="button" id="sign-out">Sign out</button>
+        </div>
+      </header>
+
+      <main class="content">
+        <div class="tabs" role="tablist" aria-label="Notifications">
+          <button class="tab" role="tab" id="tab-send" aria-controls="panel-send" aria-selected="true">Send app update</button>
+          <button class="tab" role="tab" id="tab-templates" aria-controls="panel-templates" aria-selected="false" tabindex="-1">Templates</button>
+          <button class="tab" role="tab" id="tab-history" aria-controls="panel-history" aria-selected="false" tabindex="-1">History</button>
+        </div>
+
+        <section class="panel" role="tabpanel" id="panel-send" aria-labelledby="tab-send">
+          <p class="panel-intro">
+            Once a new build is live in the store, tell everyone on an older build of that platform.
+            Each build can be announced once, so a mistake can't notify everyone twice.
+          </p>
+          <div class="send-grid">
+            <form class="card send-form" id="send-form" novalidate>
+              <div class="form-row">
+                <div class="field">
+                  <span class="field-label" id="platform-label">Platform</span>
+                  <div class="segmented" role="radiogroup" aria-labelledby="platform-label">
+                    <label><input type="radio" name="platform" value="android" checked><span>Android</span></label>
+                    <label><input type="radio" name="platform" value="ios"><span>iOS</span></label>
+                  </div>
+                  <span class="field-hint" id="platform-hint"></span>
+                </div>
+                <label class="field">
+                  <span class="field-label">New build number</span>
+                  <input class="input" type="number" name="build" id="build" min="1" step="1" inputmode="numeric" required placeholder="e.g. 46">
+                  <span class="field-hint">The number after + in the store version (1.0.0+<strong>46</strong>). Devices on an older build are notified.</span>
+                </label>
+              </div>
+
+              <label class="field">
+                <span class="field-label">Message</span>
+                <select class="select" id="template"></select>
+                <span class="field-hint">Start from a saved template, or write your own below.</span>
+              </label>
+
+              <label class="field">
+                <span class="field-label">Title</span>
+                <input class="input" type="text" id="title" maxlength="100" required>
+                <span class="field-counter" id="title-counter"></span>
+              </label>
+
+              <label class="field">
+                <span class="field-label">Text</span>
+                <textarea class="textarea" id="body" maxlength="300" required></textarea>
+                <span class="field-counter" id="body-counter"></span>
+              </label>
+
+              <label class="field">
+                <span class="field-label">Store link <span class="badge">Optional</span></span>
+                <input class="input" type="url" id="url" placeholder="https://play.google.com/store/apps/details?id=com.maika.maika">
+                <span class="field-hint" id="url-hint"></span>
+              </label>
+
+              <div class="alert alert-error" id="send-error" role="alert" hidden></div>
+
+              <div class="form-actions">
+                <button class="btn btn-primary" type="submit" id="send-submit">Send to outdated devices</button>
+              </div>
+            </form>
+
+            <aside class="card preview" aria-label="Preview">
+              <h2>Preview</h2>
+              <p>Roughly how it appears on a phone.</p>
+              <div class="phone">
+                <div class="notification">
+                  <div class="notification-app"><img src="/assets/logo.png" alt=""> Maika · now</div>
+                  <div class="notification-title" id="preview-title"></div>
+                  <div class="notification-body" id="preview-body"></div>
+                </div>
+              </div>
+            </aside>
+          </div>
+          <div id="send-result"></div>
+        </section>
+
+        <section class="panel" role="tabpanel" id="panel-templates" aria-labelledby="tab-templates" hidden>
+          <p class="panel-intro">
+            Saved messages, by type. Pick one when sending. Retired templates stay in the history
+            of what was sent, but can't be picked anymore.
+          </p>
+          <div class="toolbar">
+            <select class="select" id="templates-type" aria-label="Type"></select>
+            <label class="checkbox"><input type="checkbox" id="templates-retired"> Show retired</label>
+            <span class="spacer"></span>
+            <button class="btn btn-primary btn-small" type="button" id="template-new">New template</button>
+          </div>
+          <div id="templates"></div>
+        </section>
+
+        <section class="panel" role="tabpanel" id="panel-history" aria-labelledby="tab-history" hidden>
+          <p class="panel-intro">Every notification sent, newest first, and how many devices it reached.</p>
+          <div class="toolbar">
+            <select class="select" id="history-type" aria-label="Type"></select>
+            <span class="spacer"></span>
+            <button class="btn btn-small" type="button" id="history-refresh">Refresh</button>
+          </div>
+          <div class="card table-wrap" id="history"></div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <div class="loading" id="gate">Checking your access…</div>
+</body>
+</html>
